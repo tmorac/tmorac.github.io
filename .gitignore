@@ -1,0 +1,6 @@
+dist/
+.claude/
+node_modules/
+.Rhistory
+Thumbs.db
+desktop.ini
