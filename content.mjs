@@ -301,18 +301,20 @@ export const projects = {
     org: "University of Leeds",
     sector: "MSc dissertation",
     period: "2026",
-    title: "How a challenger brand differentiates a generic product",
+    title: "No business ever differentiated itself by optimising",
     context:
-      "Bar soap is a mature, commoditised category. My dissertation tests how a challenger can stand out through meaning rather than function, with Dr. Squatch as the motivating case.",
-    role: "Sole researcher.",
+      "When a product hits its functional ceiling, what makes a challenger win? An experiment in bar soap, a mature category, with Dr. Squatch (underdog) vs Old Spice (incumbent).",
+    role: "Sole researcher: design, fieldwork and analysis.",
     bullets: [
-      "Question: how much does challenger positioning influence purchase intention vs an incumbent brand in a mature category?",
-      "Framework: Verganti's innovation of meaning and Holt's cultural branding. The gap: the consumer mechanism by which meaning-based positioning beats functional positioning has not been tested empirically.",
-      "Design: experiment testing underdog narratives on purchase intention, mediated by design symbolism, aesthetics, functionality and authenticity, with humour as a moderator.",
-      "Measured with validated scales (self-brand connection, brand personality, brand coolness, among others). A partially failed manipulation check is discussed openly.",
+      "Ran a randomised two-group experiment with 169 participants, using real brands and ads.",
+      "The underdog story alone barely moved purchase intention (p = 0.07): being the small brand doesn't sell by itself.",
+      "It worked through meaning: product symbolism (b = 0.33) and brand authenticity (b = 0.18) carried the effect, while functionality had none.",
+      "Consumers read the underdog as passionate, not disadvantaged; humour helped attention but did not change meaning.",
     ],
-    outcome: "[[TODO: results, sample size and grade]]",
-    tools: ["R", "Experimental design", "Mediation and moderation", "Validated scales"],
+    outcome:
+      "In a mature category, growth comes from what the product means to the buyer, not from optimising performance. Symbolism carried over half of the effect.",
+    tools: ["R", "Experimental design", "Mediation analysis (lavaan)", "Validated scales"],
+    repo: "https://github.com/tmorac/underdog-positioning-experiment",
   },
 
   "ico-ml": {
