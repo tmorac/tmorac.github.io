@@ -102,6 +102,29 @@ ul, ol { margin: 0; padding: 0; }
 
 .repo-link { display: inline-block; margin-top: 16px; font-weight: 600; }
 
+/* Results table inside a project */
+.project-body, .project-meta { min-width: 0; }
+.table-wrap { overflow-x: auto; margin: 0 0 18px; max-width: 100%; }
+.results { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.results th, .results td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.results th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+.results td:not(:first-child), .results th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.results tr.best td { font-weight: 600; background: var(--accent-soft); }
+
+/* Machine learning toolkit */
+.toolkit-intro { margin-bottom: 28px; }
+.toolkit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tk-group { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.tk-group h3 { font-size: 1.15rem; font-weight: 650; margin-bottom: 4px; color: var(--accent); }
+.tk-group ul { list-style: none; margin-top: 16px; }
+.tk-group li { padding: 12px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.tk-group li strong { font-weight: 650; }
+.tk-group li span { font-size: 0.92rem; }
+.tk-group li em { font-style: normal; font-size: 0.82rem; color: var(--olive); font-weight: 500; }
+.tk-eval { margin-top: 24px; background: var(--surface); border-radius: var(--radius); padding: 20px 24px; }
+.tk-eval h3 { font-size: 1rem; font-weight: 650; margin-bottom: 10px; }
+.tk-eval .chips li { background: #fff; }
+
 .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
 .chips li {
   font-size: 0.82rem; background: var(--surface); color: var(--ink);
@@ -167,7 +190,7 @@ ul, ol { margin: 0; padding: 0; }
   .project, .exp { grid-template-columns: 1fr; gap: 12px; }
   .project { padding: 24px; }
   .project-meta .chips { margin-top: 8px; }
-  .two-col, .profile-cards { grid-template-columns: 1fr; }
+  .two-col, .profile-cards, .toolkit { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   body { font-size: 16px; }

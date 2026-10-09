@@ -102,6 +102,37 @@ function footer(prefix) {
 </footer>`;
 }
 
+function resultsTable(t) {
+  return `<div class="table-wrap"><table class="results">
+    <thead><tr>${t.head.map((h) => `<th>${rich(h)}</th>`).join("")}</tr></thead>
+    <tbody>${t.rows.map((r, i) => `<tr${i === 0 ? ' class="best"' : ""}>${r.map((c) => `<td>${rich(c)}</td>`).join("")}</tr>`).join("")}</tbody>
+  </table></div>`;
+}
+
+function toolkitSection(tk) {
+  return `<section class="wrap section" id="toolkit">
+    <h2 class="section-title">Machine learning toolkit</h2>
+    <p class="lead toolkit-intro">${rich(tk.intro)}</p>
+    <div class="toolkit">
+      ${tk.groups
+        .map(
+          (g) => `<div class="tk-group">
+        <h3>${rich(g.title)}</h3>
+        <p class="muted small">${rich(g.note)}</p>
+        <ul>${g.items
+          .map((it) => `<li><strong>${rich(it.name)}</strong><span>${rich(it.what)}</span><em>${rich(it.used)}</em></li>`)
+          .join("")}</ul>
+      </div>`
+        )
+        .join("")}
+    </div>
+    <div class="tk-eval">
+      <h3>How I evaluate models</h3>
+      <ul class="chips">${tk.evaluation.map((e) => `<li>${rich(e)}</li>`).join("")}</ul>
+    </div>
+  </section>`;
+}
+
 function projectCard(id, key, index) {
   const base = projects[id];
   if (!base) throw new Error(`Unknown project id "${id}" in profile "${key}"`);
@@ -119,8 +150,9 @@ function projectCard(id, key, index) {
       ${filled(p.context) ? `<p class="project-context">${rich(p.context)}</p>` : ""}
       ${filled(p.role) ? `<p class="project-role"><strong>My role:</strong> ${rich(p.role)}</p>` : ""}
       <ul class="bullets">${keep(p.bullets).map((b) => `<li>${rich(b)}</li>`).join("")}</ul>
+      ${p.table ? resultsTable(p.table) : ""}
       ${filled(p.outcome) ? `<p class="outcome"><span class="outcome-label">Outcome</span>${rich(p.outcome)}</p>` : ""}
-      ${p.repo ? `<a class="repo-link" href="${esc(p.repo)}" target="_blank" rel="noopener">Read the full case study on GitHub →</a>` : ""}
+      ${p.repo ? `<a class="repo-link" href="${esc(p.repo)}" target="_blank" rel="noopener">${esc(p.repoLabel || "Read the full case study on GitHub")} →</a>` : ""}
     </div>
   </article>`;
 }
@@ -169,6 +201,8 @@ ${header(prefix, pr)}
       ${pr.projects.map((id, i) => projectCard(id, key, i)).join("")}
     </div>
   </section>
+
+  ${pr.toolkit ? toolkitSection(pr.toolkit) : ""}
 
   <section class="wrap section" id="experience">
     <h2 class="section-title">Experience</h2>

@@ -57,9 +57,45 @@ export const profiles = {
     stats: [
       { value: "+15%", label: "activation lift, measured against a control group" },
       { value: "6,000+", label: "users in a logistic regression retention model" },
-      { value: "~0.80", label: "AUC, Random Forest on ICO fundraising (MSc)" },
+      { value: "0.80", label: "AUC on unseen data, best of 4 classifiers on 5,828 ICOs (MSc)" },
     ],
-    projects: ["retention-model", "chatbot", "healthcare-audit", "ico-ml"],
+    projects: ["retention-model", "ico-ml", "chatbot", "healthcare-audit"],
+    // Rendered as the "Machine learning toolkit" section. Only methods with real use behind them.
+    toolkit: {
+      intro:
+        "The classic machine learning and statistical models I work with: what each one is for, and where I have applied it.",
+      groups: [
+        {
+          title: "Classification",
+          note: "Predict a category: will this user stay, will this campaign succeed?",
+          items: [
+            { name: "Logistic regression", what: "Linear, interpretable baseline that estimates the probability of an outcome.", used: "Retention model in Python (6,000+ users); ICO classifier in R" },
+            { name: "Random Forest", what: "Ensemble of decision trees on random rows and features; captures non-linear patterns and ranks feature importance.", used: "Best ICO model, AUC 0.798 on unseen data" },
+            { name: "k-Nearest Neighbours", what: "Labels a case by its most similar past cases; tuned on the number of neighbours.", used: "ICO classifier, highest precision (0.709)" },
+            { name: "Support Vector Machine", what: "Finds the widest boundary between classes; an RBF kernel lets the boundary bend.", used: "ICO classifier, tuned on cost and sigma" },
+          ],
+        },
+        {
+          title: "Regression & inference",
+          note: "Explain how much one thing moves another, and whether the effect is real.",
+          items: [
+            { name: "Linear & logistic regression", what: "Estimate the size and direction of each driver on a continuous or binary outcome.", used: "MSc research methods; retention model" },
+            { name: "Mediation & moderation models", what: "Path models that separate why an effect happens (mediators) from when it is stronger (moderators), with bootstrapped confidence intervals.", used: "MSc dissertation (lavaan, 5,000 bootstrap resamples)" },
+            { name: "Hypothesis testing", what: "t-tests, effect sizes and significance testing to judge whether a difference is more than noise.", used: "MSc dissertation; A/B tests run in Optimizely at the agency" },
+          ],
+        },
+        {
+          title: "Unsupervised & marketing models",
+          note: "Find structure without a target: segments, dimensions, product affinities.",
+          items: [
+            { name: "K-means & PCA", what: "Group customers into segments and reduce many variables to a few underlying dimensions.", used: "MSc marketing analytics coursework in R" },
+            { name: "Conjoint analysis", what: "Estimates how much each product attribute is worth to buyers.", used: "MSc marketing analytics coursework in R" },
+            { name: "Market basket analysis", what: "Finds products that are bought together, for cross-sell and bundling.", used: "MSc marketing analytics coursework in R" },
+          ],
+        },
+      ],
+      evaluation: ["k-fold cross-validation", "Stratified train/test split", "ROC curves & AUC", "Precision, recall & F1", "Grid-search tuning", "Class imbalance", "Missing-data flags & imputation", "Feature importance"],
+    },
     expTitles: { tattersall: "Growth & Marketing Automation Consultant" },
     skills: [
       ["Languages", ["Python", "R", "SQL (incl. BigQuery)"]],
@@ -319,18 +355,32 @@ export const projects = {
 
   "ico-ml": {
     org: "University of Leeds",
-    sector: "MSc · Machine learning",
-    period: "2025–2026",
-    title: "Predicting ICO fundraising success with machine learning",
-    context: "Which characteristics of an Initial Coin Offering (ICO) predict whether it succeeds in raising funds?",
-    role: "[[TODO: individual or group work]]",
+    sector: "MSc · Machine Learning in Practice",
+    period: "2026",
+    title: "Predicting ICO fundraising success with classic machine learning",
+    context:
+      "Crypto investors face extreme information asymmetry and frequent scams. Can what a project publishes before launch predict whether it reaches its funding goal?",
+    role: "Individual coursework: the full pipeline in R, from raw data to model selection.",
     bullets: [
-      "Compared classification models; Random Forest performed best (AUC ~0.80). [[TODO: models compared]]",
-      "[[TODO: dataset, size and main variables]]",
-      "[[TODO: most important predictors and what they mean in business terms]]",
+      "Cleaned 5,828 campaigns with 22 messy variables (only ~20% complete rows): standardised categories, rescaled percentages, flagged impossible dates.",
+      "Engineered features (campaign duration, log project value, GitHub and LinkedIn presence) and missing-data flags, so models could learn from what founders hide.",
+      "Trained four classifiers with 10-fold cross-validation and grid-search tuning: logistic regression, k-NN, SVM with RBF kernel and Random Forest.",
+      "Compared them on a stratified 20% hold-out and read the trade-off for investors: k-NN protects capital, Random Forest balances risk and opportunity.",
     ],
-    outcome: "Random Forest with AUC between 0.798 and 0.805.",
-    tools: ["[[TODO: R or Python]]", "Random Forest", "Model evaluation (AUC)"],
+    table: {
+      head: ["Model (unseen data)", "AUC", "Precision", "F1"],
+      rows: [
+        ["Random Forest", "0.798", "0.681", "0.565"],
+        ["Logistic regression", "0.789", "0.636", "0.571"],
+        ["k-Nearest Neighbours", "0.770", "0.709", "0.472"],
+        ["SVM (RBF)", "n/a", "0.612", "0.490"],
+      ],
+    },
+    outcome:
+      "Random Forest selected. Expert rating was the strongest driver; offering a bonus to buyers was a red flag (4% success vs 36% without).",
+    tools: ["R", "caret", "Random Forest", "SVM", "k-NN", "Logistic regression", "ROC / AUC"],
+    repo: "https://github.com/tmorac/ico-success-prediction",
+    repoLabel: "See the code and full analysis on GitHub",
   },
 
   "banking-innovation": {
